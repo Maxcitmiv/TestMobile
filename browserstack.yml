@@ -6,9 +6,6 @@ platforms:
   - platformName: android
     deviceName: Samsung Galaxy S22 Ultra
     platformVersion: '12.0'
-  - platformName: ios
-    deviceName: iPhone 15
-    platformVersion: '17'
 browserstackLocal: true
 buildName: browserstack-build-1
 projectName: BrowserStack Sample

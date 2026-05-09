@@ -1,0 +1,17 @@
+[
+    {
+        "duration": 3.720947265625,
+        "name": "sdk:exit-handler",
+        "startTime": 1778351476438.3057,
+        "worker": "6604-13708",
+        "status": true,
+        "failure": null,
+        "details": null,
+        "entryType": "measure",
+        "platform": "0",
+        "command": null,
+        "testName": null,
+        "hookType": null,
+        "cli": true
+    }
+]

@@ -3,5 +3,5 @@ allure-pytest
 selene>=2.0.0rc4
 Appium-Python-Client
 selenium==4.35.0
-browserstack-sdk
 allure-pytest
+python-dotenv

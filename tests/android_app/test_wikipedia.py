@@ -1,30 +1,39 @@
-from appium.webdriver.common.appiumby import AppiumBy
-from selene import browser, have
 import allure
+from appium.webdriver.common.appiumby import AppiumBy
+from selene import browser, have, be
 
 
-def test_search():
+ONBOARDING_TITLE = (AppiumBy.ID, "org.wikipedia.alpha:id/primaryTextView")
+FORWARD_BUTTON = (AppiumBy.ID, "org.wikipedia.alpha:id/fragment_onboarding_forward_button")
+DONE_BUTTON = (AppiumBy.ID, "org.wikipedia.alpha:id/fragment_onboarding_done_button")
 
-    with allure.step('Type search'):
-        browser.element((AppiumBy.ACCESSIBILITY_ID, "Search Wikipedia")).click()
-        browser.element((AppiumBy.ID, "org.wikipedia.alpha:id/search_src_text")).type('Appium')
 
-    with allure.step('Verify content found'):
-        results = browser.all((AppiumBy.ID, 'org.wikipedia.alpha:id/page_list_item_title'))
-        results.should(have.size_greater_than(0))
-        results.first.should(have.text('Appium'))
+@allure.title("Проверка onboarding-экранов Wikipedia")
+def test_wikipedia_onboarding(onboarding_texts):
+    with allure.step("Проверить первый onboarding screen"):
+        browser.element(ONBOARDING_TITLE).should(be.visible)
+        browser.element(ONBOARDING_TITLE).should(have.text(onboarding_texts["screen_1"]))
 
-@allure.title('Тест-клик')
-def test_click():
-    browser.element((AppiumBy.ACCESSIBILITY_ID, "Search Wikipedia")).click()
-    browser.element((AppiumBy.ID, "org.wikipedia.alpha:id/search_src_text")).type('Xiaomi')
-    results = browser.all((AppiumBy.ID, 'org.wikipedia.alpha:id/page_list_item_title'))
-    results.should(have.size_greater_than(0))
-    results.first.should(have.text('Xiaomi'))
-    browser.element((
-        AppiumBy.ANDROID_UIAUTOMATOR,
-        'new UiSelector()'
-        '.resourceId("org.wikipedia.alpha:id/page_list_item_title")'
-        '.text("Xiaomi")'
-)).click()
-    
+    with allure.step("Перейти на второй onboarding screen"):
+        browser.element(FORWARD_BUTTON).click()
+
+    with allure.step("Проверить второй onboarding screen"):
+        browser.element(ONBOARDING_TITLE).should(be.visible)
+        browser.element(ONBOARDING_TITLE).should(have.text(onboarding_texts["screen_2"]))
+
+    with allure.step("Перейти на третий onboarding screen"):
+        browser.element(FORWARD_BUTTON).click()
+
+    with allure.step("Проверить третий onboarding screen"):
+        browser.element(ONBOARDING_TITLE).should(be.visible)
+        browser.element(ONBOARDING_TITLE).should(have.text(onboarding_texts["screen_3"]))
+
+    with allure.step("Перейти на четвертый onboarding screen"):
+        browser.element(FORWARD_BUTTON).click()
+
+    with allure.step("Проверить четвертый onboarding screen"):
+        browser.element(ONBOARDING_TITLE).should(be.visible)
+        browser.element(ONBOARDING_TITLE).should(have.text(onboarding_texts["screen_4"]))
+
+    with allure.step("Завершить onboarding"):
+        browser.element(DONE_BUTTON).click()
